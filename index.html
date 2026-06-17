@@ -1,23 +1,804 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+
+    <!-- JSON-LD Structured Data for SEO Snippet -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "자동차 첫 보험료 조회 전문 센터",
+          "url": "https://yourdomain.com",
+          "description": "처음 자동차에 가입하는 신규 운전자를 위한 다이렉트 자동차 첫 보험료 조회 방법 및 연령별 예상 비용 비교 분석 플랫폼입니다.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://yourdomain.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "offerCount": "15+",
+            "lowPrice": "500000",
+            "highPrice": "2500000",
+            "priceCurrency": "KRW",
+            "areaServed": "대한민국"
+          }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "자동차 첫 보험료는 평균적으로 얼마 정도인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "처음 가입하는 신규 운전자의 평균 자동차 보험료는 연령과 차량에 따라 다릅니다. 만 20대 초반의 경우 평균적으로 150만원에서 250만원 사이의 비용이 책정되는 경우가 많으며, 만 30세 이상의 경우 평균 80만원에서 130만원 수준으로 다소 낮아집니다. 정확한 금액은 개인의 운전 경력 합산 및 가입 조건에 따라 달라집니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "첫 보험 가입 시 가장 효과적인 할인 혜택은 무엇인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "신규 가입 시 운전경력 인정제도를 활용하는 것이 가장 좋습니다. 군대에서의 운전병 경력, 해외 운전 경력, 부모님 보험의 지정 1인 동승 경력 등을 등록하면 첫 해에도 경력자로 인정받아 상당한 금액을 할인받을 수 있습니다. 또한 다이렉트 업체를 통해 조회하는 것이 설계사 수수료를 줄여 저렴하게 가입하는 방법입니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "다이렉트 조회 시 사은품이나 현금지원 혜택을 받을 수 있나요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "보험사나 중개 플랫폼의 제휴 이벤트에 따라 신규 가입자에게 주유 상품권, 모바일 상품권 또는 카드사 청구 할인 등의 사은품 및 캐시백 혜택이 제공됩니다. 네이버나 페이코 등 간편결제 서비스와 연계하여 조회만 해도 포인트를 주는 이벤트가 상시 진행 중이므로 이를 사전에 확인하는 것이 이득입니다."
+              }
+            }
+          ]
+        }
+    </script>
+
+    <style>
+        /* CSS Modern Palette & Soft Layout Reset */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, sans-serif; 
+            background-color: #f3f4f6; 
+            color: #1f2937; 
+            line-height: 1.7; 
+        }
+        a { 
+            text-decoration: none; 
+            color: #0284c7; 
+            transition: color 0.2s ease; 
+        }
+        a:hover { 
+            color: #0369a1; 
+        }
+        header, main, footer { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            box-sizing: border-box; 
+        }
+
+        /* Color Variables */
+        :root {
+            --primary-color: #0284c7;      /* Deep Teal Blue */
+            --secondary-color: #4b5563;    /* Muted Slate Gray */
+            --accent-color: #f43f5e;       /* Soft Coral Red */
+            --background-card: #ffffff;    /* Card Background */
+            --background-soft: #f8fafc;    /* Light Slate Blue/Gray */
+            --border-color: #e2e8f0;        /* Cool Gray Border */
+        }
+
+        /* Header Styles */
+        header { 
+            background-color: var(--background-card); 
+            border-bottom: 4px solid var(--primary-color); 
+            padding: 40px 20px; 
+            text-align: center; 
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        header h1 { 
+            color: #0f172a; 
+            font-size: 2.2em; 
+            margin-bottom: 12px; 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+        }
+        header p { 
+            color: var(--secondary-color); 
+            font-size: 1.1em; 
+            margin-bottom: 25px; 
+        }
+        nav ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            gap: 15px;
+        }
+        nav li a { 
+            font-weight: bold; 
+            font-size: 0.95em; 
+            color: var(--secondary-color); 
+            padding: 8px 16px; 
+            border-radius: 20px;
+            background-color: var(--background-soft);
+            transition: all 0.3s;
+        }
+        nav li a:hover { 
+            color: white; 
+            background-color: var(--primary-color);
+        }
+
+        /* Main Section Styles */
+        section { 
+            padding: 40px 30px; 
+            background-color: var(--background-card); 
+            margin-bottom: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); 
+        }
+        section h2 { 
+            color: #0f172a; 
+            font-size: 1.8em; 
+            margin-bottom: 25px; 
+            border-bottom: 2px solid var(--border-color); 
+            padding-bottom: 12px; 
+            font-weight: 700; 
+        }
+        section h3 { 
+            color: #1e293b; 
+            font-size: 1.35em; 
+            margin-top: 35px; 
+            margin-bottom: 15px; 
+            font-weight: 600; 
+        }
+        section p { 
+            color: #374151; 
+            margin-bottom: 20px; 
+            text-align: justify;
+        }
+
+        /* Detailed Form Styles for User Engagement */
+        form { 
+            background-color: var(--background-soft); 
+            padding: 35px; 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color); 
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group { 
+            flex: 1;
+            min-width: 250px;
+        }
+        .form-group-full {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            color: #334155; 
+            font-size: 0.95em;
+        }
+        input[type="text"], input[type="number"], input[type="tel"], select, textarea {
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 0.95em;
+            background-color: white;
+            color: #0f172a;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .checkbox-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9em;
+            color: #475569;
+        }
+        .submit-btn { 
+            background-color: var(--primary-color); 
+            color: white; 
+            border: none; 
+            padding: 16px 30px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            width: 100%; 
+            transition: background-color 0.3s; 
+            margin-top: 10px;
+        }
+        .submit-btn:hover { 
+            background-color: #0369a1; 
+        }
+
+        /* Visual Info Boxes & Tables */
+        .info-box { 
+            background-color: #f0fdf4; 
+            border-left: 4px solid #16a34a; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-top: 25px; 
+            color: #14532d; 
+            font-size: 0.95em;
+        }
+        .warning-box {
+            background-color: #fff1f2;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            color: #881337;
+            font-size: 0.95em;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 25px; 
+            margin-bottom: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        th, td { 
+            padding: 15px; 
+            text-align: left; 
+            border-bottom: 1px solid var(--border-color); 
+            font-size: 0.95em;
+        }
+        th { 
+            background-color: var(--background-soft); 
+            font-weight: 700; 
+            color: #1e293b; 
+        }
+        tr:hover { 
+            background-color: #f8fafc; 
+        }
+
+        /* Keyword Tags styling */
+        .keyword-tags { 
+            margin-top: 25px; 
+            padding-top: 15px; 
+            border-top: 1px dashed var(--border-color); 
+        }
+        .keyword-tags a { 
+            display: inline-block; 
+            background-color: #f1f5f9; 
+            color: #475569; 
+            padding: 6px 14px; 
+            margin: 4px; 
+            border-radius: 15px; 
+            font-size: 0.85em; 
+            transition: all 0.2s; 
+        }
+        .keyword-tags a:hover { 
+            background-color: var(--primary-color); 
+            color: white; 
+        }
+
+        /* FAQ System Accordion CSS */
+        .faq-list { 
+            margin-top: 25px; 
+        }
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .faq-question { 
+            font-weight: 700; 
+            padding: 18px; 
+            background-color: var(--background-soft); 
+            cursor: pointer; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            color: #0f172a;
+        }
+        .faq-answer { 
+            padding: 18px; 
+            background-color: white; 
+            display: none; 
+            margin: 0; 
+            border-top: 1px solid var(--border-color);
+            color: #334155;
+        }
+
+        /* Interactive Graph Simulation */
+        .data-visualization { 
+            background-color: var(--background-soft); 
+            padding: 25px; 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color); 
+            margin-bottom: 25px; 
+        }
+        .graph-description { 
+            font-style: italic; 
+            color: #64748b; 
+            font-size: 0.85em; 
+            margin-top: 12px; 
+        }
+        .bar-chart {
+            height: 220px; 
+            display: flex; 
+            align-items: flex-end; 
+            justify-content: space-around; 
+            font-size: 0.8em; 
+            text-align: center;
+            padding-top: 20px;
+            border-bottom: 2px solid #cbd5e1;
+        }
+        .bar-container {
+            width: 18%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100%;
+        }
+        .bar {
+            border-radius: 6px 6px 0 0;
+            transition: height 0.5s ease-in-out;
+            color: white;
+            font-weight: bold;
+            padding-top: 8px;
+            box-sizing: border-box;
+        }
+        .bar-label {
+            margin-top: 8px;
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.85em;
+        }
+
+        /* Long Content Styling */
+        .long-content p { 
+            margin-bottom: 22px; 
+            text-align: justify; 
+            font-size: 1em;
+            color: #334155;
+        }
+        .related-links { 
+            background-color: var(--background-soft); 
+            padding: 20px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            margin-top: 25px; 
+        }
+        .related-links a { 
+            display: inline-block; 
+            padding: 8px 16px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 6px; 
+            font-size: 0.88em; 
+            color: #475569; 
+            background-color: white;
+            transition: all 0.2s; 
+        }
+        .related-links a:hover { 
+            background-color: var(--primary-color); 
+            border-color: var(--primary-color); 
+            color: white; 
+        }
+
+        /* Footer Styles */
+        footer { 
+            background-color: #0f172a; 
+            color: #94a3b8; 
+            text-align: center; 
+            padding: 40px 20px; 
+            margin-top: 40px; 
+            border-radius: 12px 12px 0 0; 
+            font-size: 0.9em;
+        }
+        footer p { 
+            margin: 8px 0; 
+        }
+        footer a {
+            color: #38bdf8;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>자동차 첫 보험료 조회 방법 가이드 연령별 평균 가격 비교 분석</h1>
+        <p>신규 가입자를 위한 2026년 다이렉트 자동차 첫 보험료 견적 절약 노하우와 할인 특약 혜택 정리</p>
+        <nav aria-label="주요 이동 메뉴">
+            <ul>
+                <li><a href="#조회시뮬레이터">첫 보험료 무료 조회</a></li>
+                <li><a href="#비용분석">연령별 평균 비용 비교</a></li>
+                <li><a href="#트렌드">2026 보험 트렌드</a></li>
+                <li><a href="#절약전략">보험료 절약 핵심 노하우</a></li>
+                <li><a href="#정보센터">신규 운전자 정보 센터</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+
+        <section id="조회시뮬레이터">
+            <h2>자동차 첫 보험료 실시간 예상 견적 조회 및 맞춤 정보 입력</h2>
+            <p>생애 첫 차량을 구매했거나 부모님 밑에서 독립하여 자신만의 신규 자동차 보험에 가입하려는 운전자를 위해 다양한 조건별 실시간 계산 입력을 지원합니다. 20대 초반부터 30대 이상의 연령 요건과 주행 거리 및 할인 조건을 기입하여 예상 비용 차이점을 미리 파악하세요.</p>
+
+            <form action="/calculate-first-insurance" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="car-type">1. 가입 예정 차량 모델 선택 (필수)</label>
+                        <select id="car-type" name="car-type" required>
+                            <option value="">차량 유형을 선택하십시오</option>
+                            <option value="경차">경동차 경차 (캐스퍼, 레이, 모닝 등)</option>
+                            <option value="준중형">준중형 세단 (아반떼, K3 등)</option>
+                            <option value="중형">중형 세단 (쏘나타, K5 등)</option>
+                            <option value="대형">대형 세단 및 수입차 (그랜저, G80 등)</option>
+                            <option value="소형SUV">소형 SUV (셀토스, 코나 등)</option>
+                            <option value="중대형SUV">중대형 SUV 및 패밀리카 (쏘렌토, 카니발 등)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="driver-age-select">2. 운전자 기준 만 연령 (필수)</label>
+                        <select id="driver-age-select" name="driver-age" required>
+                            <option value="">연령 범위를 선택하십시오</option>
+                            <option value="21">만 21세 이하 신규 가입</option>
+                            <option value="24">만 22세 이상 ~ 만 25세 이하</option>
+                            <option value="26">만 26세 이상 ~ 만 29세 이하</option>
+                            <option value="30">만 30세 이상 (첫 가입자 추천 구간)</option>
+                            <option value="40">만 40세 이상 신규 가입</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="career-recognition">3. 운전 경력 인정 대상 여부 (선택)</label>
+                        <select id="career-recognition" name="career-recognition">
+                            <option value="없음">해당 사항 없음 (순수 최초 가입)</option>
+                            <option value="군대">군대 운전병 복무 경력 있음 (기록 필요)</option>
+                            <option value="동승자">부모님 자동차 보험에 종피보험자 등록 이력 있음</option>
+                            <option value="해외">해외 자동차 보험 가입 유지 경력 있음</option>
+                            <option value="공직">관공서 및 법인 운전직 근무 경력 있음</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expected-mileage">4. 연간 예상 주행거리 할인 특약</label>
+                        <select id="expected-mileage" name="expected-mileage">
+                            <option value="3000">연간 3,000km 이하 (최대 할인 적용)</option>
+                            <option value="5000">연간 5,000km 이하</option>
+                            <option value="10000">연간 10,000km 이하</option>
+                            <option value="15000">연간 15,000km 이하</option>
+                            <option value="20000">연간 15,000km 초과 (할인 미적용 대상)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group-full">
+                    <label>5. 추가로 선택할 보장 범위 설정</label>
+                    <div class="checkbox-container">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cov-self" name="coverage[]" value="자기차량손해" checked>
+                            <label for="cov-self">자기차량손해 (자차 필수가입 권장)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cov-injury" name="coverage[]" value="자기신체사고" checked>
+                            <label for="cov-injury">자기신체사고 대신 자동차상해로 변경</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cov-uninsured" name="coverage[]" value="무보험차상해" checked>
+                            <label for="cov-uninsured">무보험차 상해 한도 증액</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cov-adas" name="coverage[]" value="안전장치">
+                            <label for="cov-adas">첨단 안전장치 할인 특약 포함</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="user-tel">6. 실시간 견적 안내용 연락처 (필수)</label>
+                        <input type="tel" id="user-tel" name="user-tel" placeholder="010-0000-0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-name">7. 가입 희망자 성명 (필수)</label>
+                        <input type="text" id="user-name" name="user-name" placeholder="홍길동" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">자동차 첫 보험료 최저가 조회 신청하기</button>
+            </form>
+
+            <div class="info-box">
+                <strong>자동차 첫 보험료 가입 전 확인 요령:</strong> 신규로 자동차를 출고하고 처음 가입할 때에는 대리점 설계사나 전화를 통하는 것보다 다이렉트 채널을 이용하여 스스로 조회하는 방법이 유통 마진이 없어 훨씬 저렴합니다. 또한 가입 전 네이버, 구글 검색을 적극 활용하거나 디시, 펨코, 에펨코리아, 보배드림 같은 온라인 커뮤니티의 내돈내산 가입 후기 등을 참고하면 실질적인 금액 절약에 보탬이 됩니다.
+            </div>
+
+            <div class="keyword-tags" aria-label="주요 검색 태그">
+                <a href="#비용분석">자동차 첫 보험료 평균</a>
+                <a href="#비용분석">신규 보험 조회방법</a>
+                <a href="#절약전략">다이렉트 저렴한곳</a>
+                <a href="#트렌드">2026 자동차보험 제도</a>
+                <a href="#정보센터">운전경력 인정 제도</a>
+                <a href="#비용분석">20대 첫 자동차 보험금액</a>
+                <a href="#절약전략">자차보험 가입 비용</a>
+                <a href="#정보센터">부모님 밑으로 보험 등록</a>
+            </div>
+        </section>
+
+        <section id="비용분석">
+            <h2>신규 첫 자동차 보험료 연령별 및 차종별 평균 예상 가격표</h2>
+            <p>자동차 신규 가입 시에는 사고 확률과 손해율 데이터에 근거하여 보험료가 산출됩니다. 신규 운전자는 사고 이력이 전혀 없고 주행 습관을 검증할 수 없기 때문에 기본 등급이 매우 불리하게 시작됩니다. 특히 연령대가 낮을수록 사고 발생률이 높게 기록되므로, 20대 초반의 첫 자동차 보험료 예상 금액은 30대나 40대에 비해 훨씬 높은 가격대를 형성합니다.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>가입 연령 구분 (최초 가입 기준)</th>
+                        <th>경형 및 준중형 (아반떼 기준)</th>
+                        <th>중형 및 SUV (쏘나타/쏘렌토 기준)</th>
+                        <th>핵심 할증 원인 및 특징</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>만 21세 이하 신규</td>
+                        <td>180만원 ~ 260만원 내외</td>
+                        <td>230만원 ~ 320만원 내외</td>
+                        <td>사고율이 가장 높은 나이대로 기본 할증률 극대화 단계</td>
+                    </tr>
+                    <tr>
+                        <td>만 26세 이상 신규</td>
+                        <td>120만원 ~ 170만원 내외</td>
+                        <td>150만원 ~ 210만원 내외</td>
+                        <td>일부 요율 하락 구간 진입으로 21세 이하 대비 감소</td>
+                    </tr>
+                    <tr>
+                        <td>만 30세 이상 신규</td>
+                        <td>80만원 ~ 120만원 내외</td>
+                        <td>110만원 ~ 150만원 내외</td>
+                        <td>연령 제한 특약 설정 시 비교적 저렴한 가격대 정착</td>
+                    </tr>
+                    <tr>
+                        <td>만 40세 이상 신규</td>
+                        <td>70만원 ~ 100만원 내외</td>
+                        <td>90만원 ~ 130만원 내외</td>
+                        <td>운전 미경력자임에도 연령대 손해율이 낮아 부담 완화</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>주의 사항:</strong> 상기 기재된 연령별 평균 가격 비교 수치는 최초로 가입하는 운전자가 자기차량손해(자차)를 전부 적용했을 때의 시뮬레이션 금액입니다. 차종의 배기량, 출고가(차량가액), 특약 포함 조건에 따라 실제 청구되는 견적은 상당한 차이가 날 수 있습니다. 특히 대형 차종이나 스포츠 등급이 가미된 차는 신규 등급에서 수백만 원에 이르는 할증 고지서를 받게 될 수 있습니다.
+            </div>
+
+            <h3>연령별 신규 자동차 보험 평균 예상 금액 추이 시각 자료</h3>
+            <div class="data-visualization">
+                <p class="graph-description">아반떼 준중형 모델을 최초로 가입할 시 연령대 구간별 연간 예상 청구 금액 그래프 (단위: 만원)</p>
+                <div class="bar-chart">
+                    <div class="bar-container">
+                        <div class="bar" style="height: 100%; background-color: var(--accent-color);">220</div>
+                        <div class="bar-label">만 21세 이하</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="height: 75%; background-color: #fb923c;">165</div>
+                        <div class="bar-label">만 24세 이하</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="height: 60%; background-color: #facc15;">135</div>
+                        <div class="bar-label">만 26세 이하</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="height: 43%; background-color: var(--primary-color);">95</div>
+                        <div class="bar-label">만 30세 이상</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar" style="height: 36%; background-color: #10b981;">80</div>
+                        <div class="bar-label">만 40세 이상</div>
+                    </div>
+                </div>
+                <p class="graph-description">분석 결론: 만 30세 미만의 운전자는 부모님의 보험에 종피보험자로 등록하여 가입 경력을 최소 1년에서 3년 이상 쌓은 후 개별적으로 독립 가입을 진행하는 것이 장기적으로 가장 싼곳을 선점하는 비결입니다.</p>
+            </div>
+        </section>
+
+        <section id="트렌드">
+            <h2>2026년 자동차 보험 시장 신규 트렌드 및 요율 개정 안내</h2>
+            <p>2026년 자동차 보험 시장은 고물가에 의한 정비 공임비 상승과 첨단 차량 부품의 단가 상승 여파로 기본 수리 자차 청구 부담이 늘어나며 전체적인 평균 손해율이 올랐습니다. 이에 따라 신규 운전자의 기본 요율 진입 장벽도 더욱 복잡해졌습니다. 올해 첫 보험 가입자들이 반드시 고려해야 할 핵심 변화 방향을 분석하여 알려드립니다.</p>
+
+            <h3>1. 첨단 운전자 지원 시스템 장착 차량에 대한 차별화 할인 확대</h3>
+            <p>최신 차량에 의무적으로 탑재되고 있는 전방 충돌 방지 장치, 차선 이탈 경고 장치, 후측방 경고 시스템과 같은 첨단 안전 편의 센서의 성능에 따라 보험사들은 사고 발생 확률이 확연히 경감된다는 빅데이터를 확인했습니다. 2026년에는 이와 같은 첨단 안전장치 할인 요율을 세분화하여, 최초 운전자임에도 ADAS 옵션을 풍부하게 장착한 차량을 운행할 경우 보험사들이 최대 7퍼센트에서 12퍼센트까지 기본 적용 할인을 전격 부여합니다.</p>
+
+            <h3>2. 금융당국 가이드라인에 기반한 온라인 비교 가입 플랫폼 대중화</h3>
+            <p>기존에는 개별 다이렉트 업체의 각 인터넷 누리집을 일일이 순회하며 연령별 조회 과정을 반복해야 했던 번거로움이 있었습니다. 하지만 금융감독원의 혁신 금융 지침에 따라 다양한 통합 핀테크 플랫폼에서 10대 손해보험사의 견적을 실시간으로 동시에 조회하는 장치들이 완성되었습니다. 조회 방법이 크게 간소화되었을 뿐만 아니라, 네이버페이, 카카오페이 등과 유기적으로 작동하여 신규 첫 조회 시 현금 형태의 제휴 포인트를 사은품이나 혜택으로 수령하는 실속 이벤트도 한층 두터워졌습니다.</p>
+
+            <h3>3. 기후변화 특별 재해 관련 자차 담보 보상 요율 보완</h3>
+            <p>매년 집중호우에 따른 시가지 침수 사고나 겨울철 블랙 아이스 연쇄 추돌 사고가 급증함에 따라, 신축적인 보상을 책임지는 자차 담보의 특약 구성이 중요해졌습니다. 이에 따라 2026년부터 신규 가입자는 특수 자연재해 피해에 따른 할증 완화 특별 약관을 선택할 수 있게 되었습니다. 차량 침수 시 자기 부담금 범위를 조정하여 예상치 못한 대형 수리 비용 리스크를 해소할 수 있는 안전장치를 반드시 살펴보시는 것을 권장합니다.</p>
+        </section>
+
+        <section id="절약전략">
+            <h2>신규 첫 자동차 보험료 가장 저렴한곳 찾기 및 6단계 절약 로드맵</h2>
+            <p>생애 최초 가입자로서 부담해야 하는 높은 연간 금액을 그대로 지불하기에는 재정적 소모가 극심합니다. 아래에서 제공하는 체계적인 가입 단계 분석을 따라 한 단계씩 할인을 조립하면 최초 예상 비용 대비 수십만 원의 예산을 즉각 보존할 수 있습니다.</p>
+
+            <h3>1단계: 다이렉트 자사 온라인 견적 조회 활용</h3>
+            <p>동일한 대기업 상품이더라도 설계사 수수료가 청구되는 일반 지점 채널보다 다이렉트 전용 누리집을 이용하는 쪽이 평균 15퍼센트 가량 즉각 싼곳으로 판정됩니다. 전화를 통한 계약 대행보다는 태블릿이나 개인용 컴퓨터를 통해 직접 보장 설정을 가감하는 비대면 계약 방식이 첫 보험료를 알차게 줄이는 첫걸음입니다.</p>
+
+            <h3>2단계: 가입 경력 인정 제도 필히 연계 신청</h3>
+            <p>만약 군대에서 작전용이나 행정용 차량 운전병으로 복무했거나, 관공서에서 배차 업무를 수행했거나, 법인 명의의 업무용 승용차를 지속적으로 운행하여 그 증빙 서류를 손해보험협회에 제출할 수 있다면 신규 등급에서 바로 제외됩니다. 또한 가족 중 부모님이 이전부터 본인 소유의 보험에 가입해 두었다면, 지정 1인으로 본인의 이름을 피보험자 명단에 적재해 두었던 이력을 불러와 최대 3년치까지의 경력을 바로 획득할 수 있습니다.</p>
+
+            <h3>3단계: 연간 운행 거리에 대응하는 마일리지 후환급 특약 동조</h3>
+            <p>신규 가입 당시에 마일리지 특약을 설정해 둔 다음, 주행거리 계기판 사진을 등록하면 연말 혹은 갱신 시점에 실제 탑승했던 주행 거리를 계량하여 남은 보험료를 현금으로 지급받거나 다음 연도 금액에서 선반영 할인을 받게 됩니다. 연간 주행 거리가 3,000킬로미터 내외의 초단거리 영역일 경우 보험사에 따라서 최대 35퍼센트까지 엄청난 요금을 환불해 주므로 절대 빠뜨려서는 안 됩니다.</p>
+
+            <h3>4단계: 블랙박스 설치 및 교통 정보 제공 기기 연동 할인</h3>
+            <p>안전 운행의 기초인 차량용 전후방 블랙박스가 동작 중인 것을 사진으로 촬영해 인증하면 추가 할인을 줍니다. 또한 티맵, 카카오내비 등 대중적인 스마트폰 내비게이션 앱을 작동하여 측정된 안전운전 점수가 각사에서 정한 요건(예: T맵 점수 70점 이상 등)을 상회할 시 우수 주행자로 등록되어 무사고 특약과 별개로 연동 할인을 지급받을 수 있습니다.</p>
+
+            <h3>5단계: 보장 내역 중 대물배상 및 대인배상 한도의 명확한 최적화</h3>
+            <p>보험 비용을 저렴하게 만든답시고 대물배상 보장 한도를 법적 의무인 2억 원 미만으로 지나치게 축소하면, 실제 고가 수입 차량이나 고급 대형차와의 예기치 못한 대파 추돌 시 전 가산을 충당해야 할 크나큰 채무 불이행 위험에 직면하게 됩니다. 대물배상은 5억 원에서 10억 원 이상으로 최대한 증액해 두되, 운전자 상해 관련 보장은 불합리한 중복이 없는지 실손보험과 교차 분석하는 방식으로 조정하는 것이 슬기로운 선택입니다.</p>
+
+            <h3>6단계: 신규 프로모션 이벤트 혜택 및 제휴 금융상품 대조</h3>
+            <p>다이렉트 보험사들은 타사 고객을 유치하거나 신규 회원 가입을 늘리기 위해 다채로운 이벤트를 실행합니다. 네이버, 카카오, 토스 등 주요 플랫폼에서 계산 과정을 모의 테스트하면 즉각 현금성 네이버페이 포인트나 주유 상품권을 지급합니다. 더불어 특정 제휴 신용카드로 첫 가입 청구 결제 시 2만 원에서 최대 3만 원의 일시금 캐시백 혹은 무이자 할부 등 혜택을 폭넓게 제공하고 있으니 최종 결제 전 금융사 제휴 내역을 반드시 정독하십시오.</p>
+        </section>
+
+        <section id="정보센터">
+            <h2>신규 운전자를 위한 첫 자동차 보험 지식창고 및 정보 심층 기술</h2>
+            <div class="long-content">
+                <p>처음 자차를 장만하고 공로로 진출하는 초보 운전자들에게 자동차 보험이란 법적인 요구 요건을 충족하기 위한 의무 통과 의례이면서 동시에 도로 상의 위험천만한 각종 돌발 사고로부터 자신의 전 재산과 신체 안전을 지켜내는 소중한 우산입니다. 그럼에도 불구하고 수많은 신규 가입자들은 처음 영수증에 표기된 백만 원 이상의 높은 요율 금액을 마주하면 어떻게 해야 조금이라도 싼곳을 찾을 수 있을지 막막함을 표출하곤 합니다. 본 전문 정보센터는 이러한 애로사항을 지닌 초보 오너분들을 정조준하여, 올바른 첫 보험 설계 방안을 기초부터 상세히 안내합니다.</p>
+
+                <h3>첫 가입 요금 설계 시 초보자가 가장 자주 저지르는 치명적 오류 3가지</h3>
+                <p>첫째로, 눈앞의 납입 비용 액수만을 보고서 자기차량손해(자차) 담보를 완전히 제외하는 오판을 지적할 수 있습니다. 자차는 본인이 과실을 저지른 사고를 내어 자기 자동차가 완전히 반파되거나 기둥에 추돌하여 막대한 견인 및 정비료가 요구될 때 이를 직접 해결해 주는 핵심 기둥입니다. 자차가 없을 경우 경미한 앞범퍼 접촉에도 수백만 원에 이르는 순수 공임과 부품 단가를 오롯이 내돈내산 현금으로 변제해야 하므로, 최초 가입 단계일수록 무조건 자차를 가입하는 쪽이 합당한 장점입니다.</p>
+                <p>둘째는 무조건 싼곳만 고집하여 가입 조건을 대인배상 1수준 및 의무 한도로만 바투 잡는 일입니다. 무보험차상해나 타인 피해 보장 한도가 협소하게 고착되어 있으면 막상 대형 버스나 비싼 하이브리드 수입차와의 충돌처럼 치명적인 교통 대란 사고가 발발했을 때 법률상 보장받을 구멍이 협소해져 막막한 손해를 직접 개인이 배상해야 하는 단점에 귀착됩니다. 따라서 가입 시 대인배상 2는 한도 없이 무한으로 설정하고 대물 배상 역시 최소한 5억 원 이상으로 설정하는 구성안이 전문가들의 일치된 추천입니다.</p>
+                <p>셋째는 운전자 범위 한정 조건을 신중하게 처리하지 못하는 것입니다. 본인만 운행함에도 가족 전체 가입이나 누구나 운전 가능한 조건으로 가입 신청을 덜컥 해버리면, 가뜩이나 높게 지정된 최초 운전자 기본 요율에 승차자 전원의 높은 가중 계수까지 결부되어 보험비가 불합리하게 수직 상승하게 됩니다. 차량을 주로 타고 다닐 대상이 오직 본인 한 명뿐이라면 망설임 없이 기명 피보험자 1인 한정 조항으로 한정 특약을 가입해야 연간 지불 원가 가격을 실질적으로 경감하는 탁월한 싼곳의 효과를 만끽할 수 있습니다.</p>
+
+                <h3>부모님 밑으로 첫 보험 들어가는 방법과 독립의 장단점</h3>
+                <p>만 20대 초반에서 후반 연령에 포진한 신규 차량 구매자들이 취할 수 있는 가장 웅장한 가성비 전술은 부모님의 자동차 보험에 본인을 부피보험자로 합치시키는 이른바 부모님 밑으로 들어가기 기술입니다. 차량 공동 명의 설정을 통해 지분을 부모님 99퍼센트, 본인 1퍼센트로 분할 등록한 다음, 부모님이 오랫동안 이룩해 오신 우수한 무사고 등급 할인을 그대로 승계받으면서 가족 한정 혹은 부모님 더하기 1인 특약을 활용하는 형태입니다.</p>
+                <p>이 방법의 눈부신 장점은 단독 신규 계약 시 약 200만 원 선에서 청구되던 최초 고지 비용이 단숨에 부모님 등급 요율로 녹아들어 70만 원에서 100만 원 안팎으로 가뿐히 하락한다는 데 있습니다. 하지만 크나큰 단점 또한 무시할 수 없는데, 공동 보장의 형태에서 만약 본인이 신출내기 운전 미숙으로 대형 추돌 사고를 누적하여 유발한다면 부모님이 성실하게 구축해 두신 장기 무사고 등급까지 파괴되어 다음 갱신 때 부모님의 기존 차량 보험료까지 동반 급상승하는 벼랑 끝의 악재를 마주하게 됩니다. 또한 본인 명의로 단독 사고 이력 관리 경력이 축적되지 않아 향후 30대나 40대가 되어 어쩔 수 없이 단독 명의로 독립하려 할 때 늦깎이 최초 운전자 대우를 받아 다시 한 번 고가 요율을 뒤늦게 내야 하는 이중고에 노출될 우려가 존재합니다.</p>
+
+                <h3>인터넷 커뮤니티 및 소셜 데이터에 기반한 실제 여론 분석</h3>
+                <p>실제 예비 오너들이 디시 인사이드 차갤(자동차 갤러리)이나 에펨코리아 차판(자동차 게시판), 펨코 등 온라인 익명 광장에서 나누는 단골 의제들을 검색해 보면 첫 보험 가입 경력을 어떤 방식으로 검증하고 설계할지에 대한 고민 글이 주를 이룹니다. 네이버 지식인이나 보배드림 커뮤니티 유저들의 내돈내산 체험담에 기인해 보면, 다이렉트 앱에서 조회를 시도했을 때 대기업 4개 사의 연간 청구 비용 견적 격차가 단독 기준으로 최고 40만 원 이상도 갈라지는 기이한 현상이 자주 언급되고는 합니다.</p>
+                <p>또한 인스타그램, 유튜브, 페이스북, 트위터 같은 소셜 허브망의 정보 영상에서는 각 카드사별 캐시백 행사나 연말 주유 쿠폰 증정, 모바일 신세계 상품권 사은품 지급 등 실물 보상과 연계된 신규 조회 이벤트 링크를 꼼꼼하게 채집하여 매달 새로 조합하는 이른바 체리피킹 혜택 활용이 똑똑한 행동 지침으로 적극 전파되고 있습니다. 이를 위해 구글 등 범용 브라우저 검색 포털을 적극 가동하여 월 단위 신규 가입 사은품 순위를 순회하는 발품 관리가 일상화되었습니다.</p>
+
+                <h3>AI 플랫폼 및 지능형 챗봇 활용 가이드</h3>
+                <p>요즘 신세대 운전자들은 가입 설계를 정할 때 제미나이(Gemini), 챗지피티(ChatGPT), AI 융합 금융 상담 비서 등의 최첨단 지능형 엔진을 다방면으로 호출하고 있습니다. 제미나이나 ChatGPT 플랫폼에 본인의 나이, 차량 유형, 직장 출퇴근 연간 거리와 과거 부모님 승용차 지정 1인 승차 경력 등의 핵심 매개변수 데이터를 주입하면, 인공지능이 즉시 다이렉트 저렴한곳 순위 목록과 필수 구성 특약 등을 가독성 높게 추려서 가이드라인을 출력해 줍니다. 과거에는 알지 못했던 유용한 전문 약관 정보나 가입 시 조심해야 할 독소 조항 분석까지 AI 비서가 즉석에서 상세히 정립해 주므로, 현대적인 가입자라면 이러한 첨단 기술을 바탕으로 견적 지식을 완비하는 것이 이득입니다.</p>
+            </div>
+        </section>
+
+        <section id="자주묻는질문">
+            <h2>자주 질문하시는 대표 의문 사항 (FAQ)</h2>
+            <p>신규 가입 과정에서 가장 많이 질문하고 궁금해하시는 필수 궁금증 4가지 항목을 선별하여 답변을 드립니다.</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" tabindex="0" aria-expanded="false">
+                        <span>Q1. 생애 첫 운전자인데 보험료가 200만 원 넘게 나왔어요. 원래 이렇게 비싼가요?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        A1. 네, 정상 범주에 해당합니다. 손해보험사 통계에 따르면 신규 운전자는 운전 미숙으로 인한 크고 작은 사고 유발 비율이 일반 기존 경력자에 비해 현격하게 높기 때문에 기본 등급인 최초 11Z 단계에서 큰 가산 요율을 부과받습니다. 부담을 덜기 위해서는 가입 시 부모님 중 무사고 경력이 훌륭한 분과 99:1 공동 명의를 맺은 다음 부모님 보험 밑으로 등재하시는 것을 강렬하게 권장드립니다.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" tabindex="0" aria-expanded="false">
+                        <span>Q2. 부모님 보험의 지정 1인 경력은 어떻게 인정 신청을 하고 승인을 받나요?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        A2. 과거 부모님이 보험을 유지하시던 기간 동안 본인을 지정 1인 혹은 부부나 가족 동승 피보험자로 지정해 둔 기록이 유지되고 있어야 합니다. 해당 기간이 지난 후 본인 단독 명의로 신규 가입 시, 가입 경력 인정 제도 서류를 구비해 해당 보험사나 보험개발원에 온라인 접수 신청하면 즉각 1년에서 3년 범위 내에서 운전 숙련 경력을 공인 승인받아 첫 비용을 대단히 많이 차감해 줍니다.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" tabindex="0" aria-expanded="false">
+                        <span>Q3. 다이렉트로 인터넷 조회해서 가입하면 매장 설계사와 실제 보장에 차이가 있나요?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        A3. 전혀 차이가 없습니다. 다이렉트 온라인 상품은 가입 경로가 중간 대리점을 거치지 않고 오프라인 사무실 운영 유지 비용이나 고수수료 인건비가 나가지 않도록 가입자가 직접 스마트폰 웹이나 컴퓨터 화면에서 구성하는 상품일 뿐입니다. 보상 처리 부서나 사고 수습 긴급 출동 요원은 매장 지점 오프라인 가입 고객과 100퍼센트 동일한 본사 전문 인력이 나와 수습하므로 보장성 단점은 아예 걱정할 필요가 없습니다.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" tabindex="0" aria-expanded="false">
+                        <span>Q4. 주말이나 가끔 여행 갈 때만 탈 예정인데 이런 경우에 알맞은 요율 절약법이 있을까요?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        A4. 평소에는 대중교통을 위주로 주중에 이동하고 금요일 밤이나 토요일, 일요일 같은 주말 혹은 분기별 바캉스 시즌에만 한시적으로 몰고 나가실 생각이라면 마일리지 할인 특약과 더불어 대중교통 이용 실적에 따라 일정 부분 환불해 주는 교통 수단 연동 할인 특약을 눈여겨봐야 합니다. 또한 연간 주행거리를 3천에서 5천 킬로미터 내외로만 철저하게 관리해 주시면 매년 만기 시 최대 수십만 원의 기 납부 금액을 계좌 이체 환급금으로 보상 환원받을 수 있습니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="외부기관">
+            <h2>공식 검증 기반의 신뢰도 높은 금융 기관 안내 링크</h2>
+            <p>본 문서에서 안내해 드리는 제반 규정과 자동차 요율 관련 공인 내용은 대한민국 법령 및 정식 손해보험업 협의회의 공식 기준을 근간으로 삼아 안전하게 기술되었습니다. 더욱 공적인 권위나 법적 자문 및 전문 구제 정보가 추가로 필요한 오너들께서는 아래 정부 부처 공공 플랫폼을 경유하여 심층 정보를 관람하실 수 있습니다.</p>
+            <div class="related-links">
+                <a href="https://www.fss.or.kr" target="_blank" rel="noopener">금융감독원 공식 웹사이트</a>
+                <a href="https://www.kidi.or.kr" target="_blank" rel="noopener">보험개발원 공식 홈페이지</a>
+                <a href="https://www.knia.or.kr" target="_blank" rel="noopener">손해보험협회 통합 서비스 포털</a>
+                <a href="https://www.law.go.kr" target="_blank" rel="noopener">국가법령정보센터 자동차손해배상 보장법 조회</a>
+                <a href="https://namu.wiki/w/%EC%9E%90%EB%8F%99%EC%B0%A8%EB%B3%B4%ED%97%98" target="_blank" rel="noopener">나무위키 자동차보험 상세 백과 지식</a>
+            </div>
+        </section>
+
+        <section id="카테고리">
+            <h2>함께 많이 찾는 연관 분야 정보 및 카테고리 태그</h2>
+            <div class="keyword-tags" style="border: none;">
+                <a href="#">첫 차 운전자보험 차이점</a>
+                <a href="#">신규 중고차 구입 시 취등록세 계산</a>
+                <a href="#">무사고 경력 갱신 주기와 팁</a>
+                <a href="#">자동차보험 연장 과태료 예방 방법</a>
+                <a href="#">대물 배상 한도 10억 상향 비용 가성비</a>
+                <a href="#">다이렉트 첫 가입 현금 유치 사은품 모음</a>
+                <a href="#">신규 운전자 사고 대처 10계명</a>
+                <a href="#">군 전역 운전병 군 경력 증명서 무인 발급</a>
+                <a href="#">부모님 자동차 명의 공동 지분 이전 절차</a>
+                <a href="#">하이브리드 친환경 차량 추가 특별 할인율</a>
+            </div>
+        </section>
+
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ Accordion Fold/Unfold Functionality
+        document.querySelectorAll('.faq-question').forEach((faqHeader) => {
+            faqHeader.addEventListener('click', () => {
+                const faqItem = faqHeader.parentElement;
+                const faqAnswer = faqItem.querySelector('.faq-answer');
+                const isActive = faqHeader.classList.contains('active');
+
+                // Close all other active items
+                document.querySelectorAll('.faq-question').forEach((otherHeader) => {
+                    otherHeader.classList.remove('active');
+                    otherHeader.setAttribute('aria-expanded', 'false');
+                    const spanIcon = otherHeader.querySelector('span:last-child');
+                    if (spanIcon) spanIcon.textContent = '+';
+                    const otherAnswer = otherHeader.parentElement.querySelector('.faq-answer');
+                    if (otherAnswer) otherAnswer.style.display = 'none';
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    faqHeader.classList.add('active');
+                    faqHeader.setAttribute('aria-expanded', 'true');
+                    const spanIcon = faqHeader.querySelector('span:last-child');
+                    if (spanIcon) spanIcon.textContent = '-';
+                    faqAnswer.style.display = 'block';
+                }
+            });
+
+            // Keyboard Accessibility Support
+            faqHeader.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    faqHeader.click();
+                }
+            });
+        });
+    </script>
+  
